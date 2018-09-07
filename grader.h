@@ -4,6 +4,8 @@
 #include <fstream>
 #include <string>
 
+#include "trigram.h"
+
 class grader
 {
 	public:
