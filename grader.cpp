@@ -157,15 +157,29 @@ int grader::check_E()
 
 int grader::check_F()
 {
+	int letter_count = 0;
+	bool run_on_sent = false;
 
+	char c;
+
+	while(!file.eof() && !run_on_sent)
+	{
+		file.get(c);
+		letter_count++;
+
+		if(is_punct(c))
+			letter_count++;
+		if(letter_count >= 75)
+			run_on_sent = true;
+	}
+
+	if(run_on_sent)
+		return -150;
+	else
+		return 0;
 }
 
 int grader::check_G()
-{
-
-}
-
-void grader::reset_pos()
 {
 
 }
