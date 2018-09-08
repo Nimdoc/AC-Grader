@@ -26,6 +26,14 @@ int grader::get_grade()
 
 	total_score += check_B();
 
+	reset_file();
+
+	total_score += check_C();
+
+	reset_file();
+	
+	total_score += check_D();
+
 	return total_score; 
 }
 
@@ -85,17 +93,66 @@ int grader::check_B()
 
 int grader::check_C()
 {
+	char c = ' ';
 
+	while(c == ' ')
+		file.get(c);
+
+	if(is_cap(c))
+		return 20;
+	else
+		return -10; 
 }
 
 int grader::check_D()
 {
+	char cur_c = ' ';
+	char prev_c = ' ';
+	int count = 0;
 
+	while(!file.eof() && count < 3)
+	{
+		file.get(cur_c);
+		
+		if((cur_c == prev_c))
+			count++;
+		else
+			count = 0;
+
+		prev_c = cur_c;
+	}
+
+	if(count >= 3)
+		return -50;
+	else
+		return 0;
 }
 
 int grader::check_E()
 {
+	int space_count = 0;
+	int other_count = 0;
 
+	int calc;
+
+	char c;
+
+	while(!file.eof())
+	{
+		file.get(c);
+
+		if(c == ' ')
+			space_count++;
+		else
+			other_count++;
+	}
+
+	calc = (space_count * 100) / other_count;
+
+	if((calc < 20) || (other_count == 0))
+		return -20;
+	else
+		return 20;
 }
 
 int grader::check_F()
