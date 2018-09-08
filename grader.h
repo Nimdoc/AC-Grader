@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <string>
+#include <ctype.h>
 
 #include "trigram.h"
 
@@ -25,8 +26,8 @@ class grader
 		bool is_punct(char c);
 		bool is_cap(char c);
 		void reset_file();
-
-
+		std::string extract_trigram();
+		std::string lowercase(std::string word);
 
 		std::ifstream file;
 };

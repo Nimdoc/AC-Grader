@@ -1,4 +1,3 @@
-
 #include "grader.h"
 
 bool grader::open_file(const char* file_name)
@@ -22,6 +21,10 @@ int grader::get_grade()
 	int total_score = 0;
 
 	total_score += check_A();
+
+	reset_file();
+
+	total_score += check_B();
 
 	return total_score; 
 }
@@ -64,7 +67,20 @@ int grader::check_A()
 
 int grader::check_B()
 {
+	std::string cur_trigram;
+	trigram Trigram;
 
+	int count = 0;
+
+	while(!file.eof())
+	{
+		cur_trigram = extract_trigram();
+
+		if(Trigram.is_trigram(lowercase(cur_trigram)))
+			count++;
+	}
+
+	return (count * 3);
 }
 
 int grader::check_C()
@@ -112,6 +128,58 @@ void grader::reset_file()
 	file.clear();
 	file.seekg(0, std::ios::beg);
 }
+
+std::string grader::extract_trigram()
+{
+	int count = 0;
+	char c = '\n';
+
+	std::string cur_trigram;
+
+	while(!isalpha(c) && !file.eof())
+		file.get(c);
+
+	// Not gonna bust out anything complicated for checking 3 chars
+	if(isalpha(c))
+	{
+		cur_trigram.push_back(c);
+		file.get(c);
+		if(isalpha(c))
+		{
+			cur_trigram.push_back(c);
+			file.get(c);
+			if(isalpha(c))
+				cur_trigram.push_back(c);
+		}
+	}
+
+	while(isalpha(c) && !file.eof())
+		file.get(c);
+
+	return cur_trigram;
+}
+
+std::string grader::lowercase(std::string word)
+{
+	std::string low_word;
+
+	for(int i = 0; i < word.length(); i++)
+		low_word.push_back(tolower(word[i]));
+
+	return low_word;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
