@@ -1,5 +1,11 @@
 #include "trigram.h"
 
+/*
+PRE: None 
+POST: None
+
+Checks to see if 'phrase' is in the trigram table returns true or false respectively.
+*/
 bool trigram::is_trigram(std::string phrase)
 {
 	int result;
@@ -12,6 +18,12 @@ bool trigram::is_trigram(std::string phrase)
 		return false;
 }
 
+/*
+PRE: None 
+POST: None
+
+Does a binary search on trigram_table for 'phrase'. Returns the array location if found, otherwise returns -1
+*/
 int trigram::search(std::string phrase, int l, int r)
 {
 	int comp = 0;
