@@ -34,6 +34,18 @@ int grader::get_grade()
 	
 	total_score += check_D();
 
+	reset_file();
+
+	total_score += check_E();
+
+	reset_file();
+
+	total_score += check_F();
+
+	reset_file();
+	
+	total_score += check_G();
+
 	return total_score; 
 }
 
@@ -168,7 +180,7 @@ int grader::check_F()
 		letter_count++;
 
 		if(is_punct(c))
-			letter_count++;
+			letter_count = 0;
 		if(letter_count >= 75)
 			run_on_sent = true;
 	}
@@ -181,7 +193,29 @@ int grader::check_F()
 
 int grader::check_G()
 {
+	char c;
+	bool found_space = false;
+	int c_count = 0;
+	int g_count = 0;
 
+	while(!file.eof())
+	{
+		file.get(c);
+		c_count++;
+
+		if(c == ' ')
+			found_space = true;
+		if(c_count >= 32)
+		{
+			if(!found_space)
+				g_count++;
+
+			c_count = 0;
+			found_space = false;
+		}
+	}
+
+	return -20 * g_count;
 }
 
 bool grader::is_punct(char c)
