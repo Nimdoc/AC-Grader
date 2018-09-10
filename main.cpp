@@ -18,5 +18,14 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
-	std::cout << "Score: " << Grader.get_grade() << std::endl;
+	Grader.grade_file();
+
+	std::cout << "Individual Grades:\n\n";
+
+	for(int i = 0; i < 7; i++)
+		std::cout << "Check " << (char)('A' + i) << ": " << Grader.get_single_grade('A' + i) << std::endl;
+
+	std::cout << "\nTotal Grade: " << Grader.get_total_grade() << std::endl;
+
+	Grader.close_file();
 }

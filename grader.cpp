@@ -29,42 +29,38 @@ bool grader::close_file()
 }
 
 /*
-PRE: None 
-POST: None
+PRE: File must be open and at the beginning. 
+POST: Member file will be at EOF.
 
 Returns the score of a 'letter' by going through various checks.
 */
-int grader::get_grade()
+void grader::grade_file()
 {
-	int total_score = 0;
-
-	total_score += check_A();
+	grades[0] = check_A();
 
 	reset_file();
 
-	total_score += check_B();
+	grades[1] = check_B();
 
 	reset_file();
 
-	total_score += check_C();
+	grades[2] = check_C();
 
 	reset_file();
 	
-	total_score += check_D();
+	grades[3] = check_D();
 
 	reset_file();
 
-	total_score += check_E();
+	grades[4] = check_E();
 
 	reset_file();
 
-	total_score += check_F();
+	grades[5] = check_F();
 
 	reset_file();
 	
-	total_score += check_G();
-
-	return total_score; 
+	grades[6] = check_G();
 }
 
 /*
@@ -382,6 +378,64 @@ std::string grader::lowercase(std::string word)
 	return low_word;
 }
 
+/*
+PRE: grade_file method has been run.
+POST: None
+
+Gets a single grade from a single check.
+*/
+int grader::get_single_grade(char check)
+{
+	switch(check)
+	{
+		case 'a':
+		case 'A':
+			return grades[0];
+			break;
+		case 'b':
+		case 'B':
+			return grades[1];
+			break;
+		case 'c':
+		case 'C':
+			return grades[2];
+			break;
+		case 'd':
+		case 'D':
+			return grades[3];
+			break;
+		case 'e':
+		case 'E':
+			return grades[4];
+			break;
+		case 'f':
+		case 'F':
+			return grades[5];
+			break;
+		case 'g':
+		case 'G':
+			return grades[6];
+			break;
+	}
+
+	return 0;
+}
+
+/*
+PRE: grade_file method has been run.
+POST: None
+
+Get's the total grade from all checks.
+*/
+int grader::get_total_grade()
+{
+	int total_grade = 0;
+
+	for(int i = 0; i < 7; i++)
+		total_grade += grades[i];
+
+	return total_grade;
+}
 
 
 

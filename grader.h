@@ -13,7 +13,9 @@ class grader
 		bool open_file(const char* file_name);
 		bool close_file();
 
-		int get_grade();
+		void grade_file();
+		int get_single_grade(char check);
+		int get_total_grade();
 	private:
 		int check_A();
 		int check_B();
@@ -28,6 +30,7 @@ class grader
 		std::string extract_trigram();
 		std::string lowercase(std::string word);
 
+		int grades[7];
 		std::ifstream file;
 };
 
